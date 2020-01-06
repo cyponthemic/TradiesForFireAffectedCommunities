@@ -10,10 +10,7 @@
           Filter by
         </div>
         <div class="flex flex-wrap">
-          <div
-            v-show="zipcode || zipcodes.length > 1"
-            class="w-full sm:w-1/2 p-3"
-          >
+          <div class="w-full sm:w-1/2 p-3">
             <SelectFilter
               :items="zipcodes"
               v-model="zipcode"
