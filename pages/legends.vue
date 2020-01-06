@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-500 pt-12 text-center">
+  <div class="bg-red-500 pt-12 text-center min-h-screen">
     <h1 class="font-bold text-5xl my-6 text-white">
       {{ legends.length }} Legends
     </h1>
