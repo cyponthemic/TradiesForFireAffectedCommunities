@@ -28,9 +28,9 @@
       </div>
 
       <div class="flex flex-wrap">
-        <div v-for="individual in sorted" class="w-1/2 sm:w-1/3 p-3">
+        <div v-for="individual in sorted" class="w-full sm:w-1/3 p-3">
           <div
-            class="bg-white px-6 py-8 rounded-lg text-center h-36 sm:h-48 flex flex-col items-center justify-center"
+            class="bg-white px-6 py-8 rounded-lg text-center sm:h-48 flex flex-col items-center justify-center"
           >
             <h2 class="text-xl font-bold text-gray-700 capitalize">
               {{ individual.name }}
