@@ -3,11 +3,15 @@
     <div class="mb-3">
       {{ label }}
     </div>
-    <VSelect :value="value" :options="items" @input="emit"></VSelect>
+    <VSelect
+      :value="value"
+      :options="items"
+      @input="emit"
+      class="capitalize"
+    ></VSelect>
   </div>
 </template>
 <script>
-import 'vue-select/dist/vue-select.css'
 import VSelect from 'vue-select'
 
 export default {

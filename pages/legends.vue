@@ -33,7 +33,7 @@
       <div class="flex flex-wrap">
         <div v-for="individual in sorted" class="w-1/2 sm:w-1/3 p-3">
           <div
-            class="bg-white px-6 py-8 rounded-lg text-center sm:h-48 flex flex-col items-center justify-center"
+            class="bg-white px-6 py-8 rounded-lg text-center h-36 sm:h-48 flex flex-col items-center justify-center"
           >
             <h2 class="text-xl font-bold text-gray-700 capitalize">
               {{ individual.name }}
@@ -56,8 +56,10 @@
 </template>
 <script>
 import { last, sortBy } from 'lodash-es'
-import sortedUniq from 'lodash-es/sortedUniq'
 import uniq from 'lodash-es/uniq'
+import Papa from 'papaparse'
+import flatten from 'lodash-es/flatten'
+import trim from 'lodash-es/trim'
 
 export default {
   components: { SelectFilter: () => import('~/components/legends/filter.vue') },
@@ -73,21 +75,26 @@ export default {
       return (last(this.legends) || {}).date
     },
     sorted() {
-      return sortBy(this.legends, 'name')
+      return sortBy(this.legends, (tradie) => tradie.name + tradie.company)
         .filter((l) => !this.zipcode || this.zipcode === l.zipcode)
-        .filter((l) => !this.skill || this.skill === l.skills)
+        .filter((l) => !this.skill || l.skills.includes(this.skill))
     },
     skills() {
       const source = this.zipcode ? this.sorted : this.legends
-      const skills = source.map((l) => l.skills)
+      const skills = flatten(
+        source.map((l) => l.skills.split(',').map((e) => trim(e)))
+      )
       return uniq(skills)
         .sort()
         .filter((e) => e)
     },
     zipcodes() {
-      const source = this.skill ? this.sorted : this.legends
-
-      return sortedUniq(source.map((l) => l.zipcode))
+      const source = (this.skill ? this.sorted : this.legends).map(
+        (l) => l.zipcode
+      )
+      return uniq(source)
+        .sort()
+        .filter((e) => e)
     },
     companies() {
       return this.legends.filter((l) => l.type === 'Company')
@@ -100,10 +107,14 @@ export default {
   mounted() {
     this.$axios
       .get(
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpI6XAENFlyUChsOBH-29E-Hr1lbx1GrIoAjaFiH0C15ncq5P1nS-cRLFxNkJZ9W8WlyrKe4-WIQMt/pub?gid=226450965&single=true&output=csv'
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpI6XAENFlyUChsOBH-29E-Hr1lbx1GrIoAjaFiH0C15ncq5P1nS-cRLFxNkJZ9W8WlyrKe4-WIQMt/pub?output=csv'
       )
       .then(({ data }) => {
-        this.legends = this.processData(data)
+        this.legends = Papa.parse(data, {
+          header: true
+        }).data
+
+        console.log(Papa.parse(data))
       })
   },
   methods: {
@@ -114,13 +125,11 @@ export default {
 
       for (let i = 1; i < allTextLines.length; i++) {
         const data = allTextLines[i].split(',')
-        if (data.length === headers.length) {
-          const tarr = {}
-          for (let j = 0; j < headers.length; j++) {
-            tarr[headers[j]] = data[j]
-          }
-          lines.push(tarr)
+        const tarr = {}
+        for (let j = 0; j < headers.length; j++) {
+          tarr[headers[j]] = data[j]
         }
+        lines.push(tarr)
       }
       return lines
     }
