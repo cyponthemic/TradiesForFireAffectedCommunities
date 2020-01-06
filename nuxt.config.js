@@ -21,7 +21,7 @@ export default {
       {
         hid: `og:url`,
         property: 'og:url',
-        content: 'https://tradiesforfireaffectedcommunities.netlify.com/'
+        content: 'https://tradiesforfireaffectedcommunities.com'
       },
       {
         hid: `og:image`,
