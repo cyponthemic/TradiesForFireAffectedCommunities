@@ -5,21 +5,20 @@
       <div>
         Filter by
       </div>
-      Postcodes <br />
-      <select
-        id="zipcodes"
-        v-model="zipcode"
-        v-show="zipcodes.length > 1"
-        name=""
-      >
-        <option :value="zipcode" v-for="zipcode in zipcodes">{{
-          zipcode
-        }}</option>
-      </select>
+      <div v-show="zipcode !== '' || zipcodes.length > 1">
+        Postcodes <br />
+        <select id="zipcodes" v-model="zipcode" name="">
+          <option value=""></option>
+          <option :value="zipcode" v-for="zipcode in zipcodes">{{
+            zipcode
+          }}</option>
+        </select>
+      </div>
     </div>
-    <div>
+    <div v-show="skill !== '' || skills.length > 1">
       Skills <br />
-      <select id="skills" v-model="skill" v-show="skills.length > 1" name="">
+      <select id="skills" v-model="skill" name="">
+        <option value=""></option>
         <option :value="skill" v-for="skill in skills">
           {{ skill }}
         </option>
@@ -60,13 +59,16 @@ export default {
         .filter((l) => this.skill === '' || this.skill === l.skills)
     },
     skills() {
-      const skills = this.sorted.map((l) => l.skills)
+      const source = this.zipcode ? this.sorted : this.legends
+      const skills = source.map((l) => l.skills)
       return uniq(skills)
         .sort()
         .filter((e) => e)
     },
     zipcodes() {
-      return sortedUniq(this.sorted.map((l) => l.zipcode))
+      const source = this.skill ? this.sorted : this.legends
+
+      return sortedUniq(source.map((l) => l.zipcode))
     },
     companies() {
       return this.legends.filter((l) => l.type === 'Company')
