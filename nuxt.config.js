@@ -81,6 +81,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    transpile: ['lodash-es'],
     extend(config, ctx) {}
   }
 }

@@ -2,16 +2,24 @@
   <div class="container mx-auto text-center">
     <h1 class="font-bold text-5xl my-6">{{ legends.length }} Legends</h1>
     <div>
-      Filter by <br />
-      <select id="zipcodes" v-model="zipcode" name="">
+      <div>
+        Filter by
+      </div>
+      Postcodes <br />
+      <select
+        id="zipcodes"
+        v-model="zipcode"
+        v-show="zipcodes.length > 1"
+        name=""
+      >
         <option :value="zipcode" v-for="zipcode in zipcodes">{{
           zipcode
         }}</option>
       </select>
     </div>
     <div>
-      Refine by <br />
-      <select id="skills" v-model="skill" name="">
+      Skills <br />
+      <select id="skills" v-model="skill" v-show="skills.length > 1" name="">
         <option :value="skill" v-for="skill in skills">
           {{ skill }}
         </option>
@@ -20,6 +28,9 @@
     <div class="flex flex-wrap">
       <div v-for="individual in sorted" class="w-1/4 p-3 capitalize">
         {{ individual.name }}
+
+        <br v-if="individual.company" />
+        <span v-if="individual.company"> ({{ individual.company }}) </span>
       </div>
     </div>
     <div>
