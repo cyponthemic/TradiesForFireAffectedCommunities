@@ -13,8 +13,8 @@
           <ButtonPrimary>Offer Help</ButtonPrimary>
         </a>
         <ButtonPrimary class="opacity-50 pointer-events-none"
-          >Need Help</ButtonPrimary
-        >
+          >Need Help
+        </ButtonPrimary>
         <small class="block mt-3">Need Help form coming soon</small>
       </div>
     </div>
