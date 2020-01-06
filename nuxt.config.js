@@ -26,12 +26,18 @@ export default {
       {
         hid: `og:image`,
         property: 'og:image',
-        content: '/TFFAC_Red_Updated-01.png'
+        content:
+          'https://tradiesforfireaffectedcommunities.com/TFFAC_Red_Updated-01.png'
+      },
+      {
+        hid: `fb:app_id`,
+        property: 'fb:app_id',
+        content: '2676850799027408'
       },
       {
         hid: `og:description`,
         property: 'og:description',
-        content: ''
+        content: process.env.npm_package_description || ''
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' }]
