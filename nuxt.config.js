@@ -54,7 +54,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['vue-select/dist/vue-select.css'],
+  css: ['~assets/css/vendor.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -82,6 +82,7 @@ export default {
      ** You can extend webpack config here
      */
     transpile: ['lodash-es'],
+    extractCss: true,
     extend(config, ctx) {}
   }
 }
