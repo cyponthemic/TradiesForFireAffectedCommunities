@@ -24,6 +24,11 @@ export default {
         content: 'https://tradiesforfireaffectedcommunities.com'
       },
       {
+        hid: `og:type`,
+        property: 'og:url',
+        content: 'website'
+      },
+      {
         hid: `og:image`,
         property: 'og:image',
         content:
