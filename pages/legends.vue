@@ -1,35 +1,47 @@
 <template>
   <div class="container mx-auto text-center">
     <h1 class="font-bold text-5xl my-6">{{ legends.length }} Legends</h1>
-    <div>
-      <div>
+    <div class="text-left">
+      <div class="px-3">
         Filter by
       </div>
-      <div v-show="zipcode !== '' || zipcodes.length > 1">
-        Postcodes <br />
-        <select id="zipcodes" v-model="zipcode" name="">
-          <option value=""></option>
-          <option :value="zipcode" v-for="zipcode in zipcodes">{{
-            zipcode
-          }}</option>
-        </select>
+      <div class="flex flex-wrap">
+        <div
+          v-show="zipcode || zipcodes.length > 1"
+          class="w-full sm:w-1/2 p-3"
+        >
+          <SelectFilter
+            :items="zipcodes"
+            v-model="zipcode"
+            label="Postcode"
+          ></SelectFilter>
+        </div>
+        <div v-show="skill || skills.length > 1" class="w-full sm:w-1/2 p-3">
+          <SelectFilter
+            :items="skills"
+            v-model="skill"
+            label="Skills"
+          ></SelectFilter>
+        </div>
       </div>
     </div>
-    <div v-show="skill !== '' || skills.length > 1">
-      Skills <br />
-      <select id="skills" v-model="skill" name="">
-        <option value=""></option>
-        <option :value="skill" v-for="skill in skills">
-          {{ skill }}
-        </option>
-      </select>
-    </div>
-    <div class="flex flex-wrap">
-      <div v-for="individual in sorted" class="w-1/4 p-3 capitalize">
-        {{ individual.name }}
 
-        <br v-if="individual.company" />
-        <span v-if="individual.company"> ({{ individual.company }}) </span>
+    <div class="flex flex-wrap">
+      <div v-for="individual in sorted" class="w-1/2 sm:w-1/3 p-2">
+        <div
+          class="bg-white px-6 py-8 rounded-lg text-center sm:h-48 flex flex-col items-center justify-center"
+        >
+          <h2 class="text-xl font-bold text-gray-700 capitalize">
+            {{ individual.name }}
+          </h2>
+          <h2
+            v-if="individual.company"
+            class="text-sm font-medium text-gray-700 capitalize"
+          >
+            {{ individual.company }}
+          </h2>
+          <span class="text-blue-500 block">{{ individual.skills }} </span>
+        </div>
       </div>
     </div>
     <div>
@@ -41,12 +53,14 @@
 import { last, sortBy } from 'lodash-es'
 import sortedUniq from 'lodash-es/sortedUniq'
 import uniq from 'lodash-es/uniq'
+
 export default {
+  components: { SelectFilter: () => import('~/components/legends/filter.vue') },
   data() {
     return {
       legends: [],
-      skill: '',
-      zipcode: ''
+      skill: null,
+      zipcode: null
     }
   },
   computed: {
@@ -55,8 +69,8 @@ export default {
     },
     sorted() {
       return sortBy(this.legends, 'name')
-        .filter((l) => this.zipcode === '' || this.zipcode === l.zipcode)
-        .filter((l) => this.skill === '' || this.skill === l.skills)
+        .filter((l) => !this.zipcode || this.zipcode === l.zipcode)
+        .filter((l) => !this.skill || this.skill === l.skills)
     },
     skills() {
       const source = this.zipcode ? this.sorted : this.legends
