@@ -1,51 +1,56 @@
 <template>
-  <div class="container mx-auto text-center">
-    <h1 class="font-bold text-5xl my-6">{{ legends.length }} Legends</h1>
-    <div class="text-left">
-      <div class="px-3">
-        Filter by
-      </div>
-      <div class="flex flex-wrap">
-        <div
-          v-show="zipcode || zipcodes.length > 1"
-          class="w-full sm:w-1/2 p-3"
-        >
-          <SelectFilter
-            :items="zipcodes"
-            v-model="zipcode"
-            label="Postcode"
-          ></SelectFilter>
-        </div>
-        <div v-show="skill || skills.length > 1" class="w-full sm:w-1/2 p-3">
-          <SelectFilter
-            :items="skills"
-            v-model="skill"
-            label="Skills"
-          ></SelectFilter>
-        </div>
-      </div>
-    </div>
+  <div class="bg-red-500 pt-12 text-center">
+    <h1 class="font-bold text-5xl my-6 text-white">
+      {{ legends.length }} Legends
+    </h1>
 
-    <div class="flex flex-wrap">
-      <div v-for="individual in sorted" class="w-1/2 sm:w-1/3 p-2">
-        <div
-          class="bg-white px-6 py-8 rounded-lg text-center sm:h-48 flex flex-col items-center justify-center"
-        >
-          <h2 class="text-xl font-bold text-gray-700 capitalize">
-            {{ individual.name }}
-          </h2>
-          <h2
-            v-if="individual.company"
-            class="text-sm font-medium text-gray-700 capitalize"
+    <div class="container mx-auto">
+      <div class="bg-white rounded-lg  px-6 py-8 mx-3 text-left">
+        <div class="px-3">
+          Filter by
+        </div>
+        <div class="flex flex-wrap">
+          <div
+            v-show="zipcode || zipcodes.length > 1"
+            class="w-full sm:w-1/2 p-3"
           >
-            {{ individual.company }}
-          </h2>
-          <span class="text-blue-500 block">{{ individual.skills }} </span>
+            <SelectFilter
+              :items="zipcodes"
+              v-model="zipcode"
+              label="Postcode"
+            ></SelectFilter>
+          </div>
+          <div v-show="skill || skills.length > 1" class="w-full sm:w-1/2 p-3">
+            <SelectFilter
+              :items="skills"
+              v-model="skill"
+              label="Skills"
+            ></SelectFilter>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <small> Last updated {{ lastDate }} </small>
+
+      <div class="flex flex-wrap">
+        <div v-for="individual in sorted" class="w-1/2 sm:w-1/3 p-3">
+          <div
+            class="bg-white px-6 py-8 rounded-lg text-center sm:h-48 flex flex-col items-center justify-center"
+          >
+            <h2 class="text-xl font-bold text-gray-700 capitalize">
+              {{ individual.name }}
+            </h2>
+            <h2
+              v-if="individual.company"
+              class="text-sm font-medium text-gray-700 capitalize"
+            >
+              {{ individual.company }}
+            </h2>
+            <span class="text-blue-500 block">{{ individual.skills }} </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <small> Last updated {{ lastDate }}</small>
+      </div>
     </div>
   </div>
 </template>
