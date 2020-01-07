@@ -53,7 +53,7 @@
 import IconFacebook from '../components/IconFacebook'
 import IconMail from '../components/IconMail'
 import Logo from '~/components/Logo.vue'
-import ButtonPrimary from '~/components/Button.vue'
+import ButtonPrimary from '~/components/ButtonInvert.vue'
 
 export default {
   components: {

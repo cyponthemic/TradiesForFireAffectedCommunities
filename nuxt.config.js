@@ -3,6 +3,9 @@ export default {
   /*
    ** Headers of the page
    */
+  env: {
+    API_ENDPOINT: process.env.API_ENDPOINT
+  },
   head: {
     title: 'Tradies For Fire Affected Communities',
     meta: [
@@ -45,7 +48,13 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/leaflet/1/leaflet.css'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -73,7 +82,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', 'nuxt-leaflet'],
   /*
    ** Build configuration
    */
