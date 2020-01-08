@@ -26,36 +26,39 @@
         placeholder="Where do you need help?"
       />
     </div>
-    <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-      <label
-        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-        for="grid-limit"
-      >
-        Limit in km
-      </label>
-      <input
-        id="grid-limit"
-        v-model="limit"
-        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-        type="text"
-        placeholder="(kms)"
-      />
+    <div class="md:flex mt-3">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+          for="grid-limit"
+        >
+          Limit in km
+        </label>
+        <input
+          id="grid-limit"
+          v-model="limit"
+          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+          type="text"
+          placeholder="(kms)"
+        />
+      </div>
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+          for="grid-trade"
+        >
+          Trade search
+        </label>
+        <input
+          id="grid-trade"
+          v-model="trade"
+          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+          type="text"
+          placeholder="Enter keywords"
+        />
+      </div>
     </div>
-    <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-      <label
-        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-        for="grid-trade"
-      >
-        Trade search
-      </label>
-      <input
-        id="grid-trade"
-        v-model="trade"
-        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-        type="text"
-        placeholder="Enter keywords"
-      />
-    </div>
+
     <div v-if="search.nbHits">
       {{ search.nbHits }} tradies ready to help around this area
     </div>
@@ -83,6 +86,8 @@
   </div>
 </template>
 <script>
+import throttle from 'lodash-es/throttle'
+
 export default {
   data() {
     return {
@@ -126,6 +131,11 @@ export default {
       return this.location.suggestion.hit._geoloc.lng
     }
   },
+  watch: {
+    trade() {
+      this.fetch()
+    }
+  },
   mounted() {
     const places = require('places.js')
     // eslint-disable-next-line no-unused-vars
@@ -151,22 +161,21 @@ export default {
       this.location = location
       this.$nextTick(this.fetch)
     },
-    fetch() {
-      if (!this.lat || !this.lng) return false
-
+    fetch: throttle(function() {
+      const params = {
+        lat: this.lat,
+        lon: this.lng,
+        limit: this.limit / 100,
+        trade: this.trade
+      }
       this.$axios
         .get(process.env.API_ENDPOINT + '/tradie/index', {
-          params: {
-            lat: this.lat,
-            lon: this.lng,
-            limit: this.limit / 100,
-            trade: this.trade
-          }
+          params
         })
         .then(({ data }) => {
           this.search = data
         })
-    }
+    }, 500)
   }
 }
 </script>
