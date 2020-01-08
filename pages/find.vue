@@ -1,5 +1,6 @@
 <template>
   <div class="p-4">
+    <h1 class="text-3xl font-bold py-4">Find some help around you</h1>
     <div id="map-wrap" style="height: 50vh">
       <no-ssr>
         <l-map :zoom="3" :center="centerLatLon">
