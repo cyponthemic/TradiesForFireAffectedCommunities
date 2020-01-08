@@ -13,7 +13,49 @@
         </l-map>
       </no-ssr>
     </div>
-    <input id="address-input" type="search" placeholder="Where are we going?" />
+    <div class="px-3 my-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="grid-limit"
+      >
+        Affected area
+      </label>
+      <input
+        id="address-input"
+        type="search"
+        placeholder="Where do you need help?"
+      />
+    </div>
+    <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="grid-limit"
+      >
+        Limit in km
+      </label>
+      <input
+        id="grid-limit"
+        v-model="limit"
+        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+        type="text"
+        placeholder="(kms)"
+      />
+    </div>
+    <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="grid-trade"
+      >
+        Trade search
+      </label>
+      <input
+        id="grid-trade"
+        v-model="trade"
+        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+        type="text"
+        placeholder="Enter keywords"
+      />
+    </div>
     <div v-if="search.nbHits">
       {{ search.nbHits }} tradies ready to help around this area
     </div>
@@ -44,6 +86,8 @@
 export default {
   data() {
     return {
+      limit: 10000,
+      trade: '',
       search: {
         hits: [],
         nbHits: 0
@@ -115,7 +159,8 @@ export default {
           params: {
             lat: this.lat,
             lon: this.lng,
-            limit: 100000
+            limit: this.limit / 100,
+            trade: this.trade
           }
         })
         .then(({ data }) => {
