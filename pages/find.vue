@@ -135,6 +135,9 @@ export default {
   watch: {
     trade() {
       this.fetch()
+    },
+    limit() {
+      this.fetch()
     }
   },
   mounted() {
@@ -166,7 +169,7 @@ export default {
       const params = {
         lat: this.lat,
         lon: this.lng,
-        limit: this.limit / 100,
+        limit: this.limit * 100,
         trade: this.trade
       }
       this.$axios
