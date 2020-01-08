@@ -170,7 +170,7 @@ export default {
         lat: this.lat,
         lon: this.lng,
         limit: this.limit * 100,
-        trade: this.trade
+        searchQuery: this.trade
       }
       this.$axios
         .get(process.env.API_ENDPOINT + '/tradie/index', {
