@@ -80,7 +80,12 @@
           <h2 class="text-sm font-medium text-gray-700 capitalize">
             {{ tradie['Postcode'] }}
           </h2>
-          <span class="text-blue-500 block">{{ tradie.Trade }} </span>
+          <div
+            v-if="tradie._highlightResult.Trade"
+            v-html="tradie._highlightResult.Trade.value"
+            class="text-blue-500 block"
+          ></div>
+          <span v-else class="text-blue-500 block">{{ tradie.Trade }} </span>
         </div>
       </div>
     </div>
@@ -183,3 +188,8 @@ export default {
   }
 }
 </script>
+<style>
+.text-blue-500 em {
+  color: #3b8070;
+}
+</style>
