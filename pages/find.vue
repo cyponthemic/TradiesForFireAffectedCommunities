@@ -1,5 +1,6 @@
 <template>
   <div class="p-4">
+    <h1 class="text-3xl font-bold py-4">Find some help around you</h1>
     <div id="map-wrap" style="height: 50vh">
       <no-ssr>
         <l-map :zoom="3" :center="centerLatLon">
@@ -13,7 +14,52 @@
         </l-map>
       </no-ssr>
     </div>
-    <input id="address-input" type="search" placeholder="Where are we going?" />
+    <div class="px-3 my-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="grid-limit"
+      >
+        Affected area
+      </label>
+      <input
+        id="address-input"
+        type="search"
+        placeholder="Where do you need help?"
+      />
+    </div>
+    <div class="md:flex mt-3">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+          for="grid-limit"
+        >
+          Limit in km
+        </label>
+        <input
+          id="grid-limit"
+          v-model="limit"
+          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+          type="text"
+          placeholder="(kms)"
+        />
+      </div>
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+          for="grid-trade"
+        >
+          Trade search
+        </label>
+        <input
+          id="grid-trade"
+          v-model="trade"
+          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
+          type="text"
+          placeholder="Enter keywords"
+        />
+      </div>
+    </div>
+
     <div v-if="search.nbHits">
       {{ search.nbHits }} tradies ready to help around this area
     </div>
@@ -34,16 +80,25 @@
           <h2 class="text-sm font-medium text-gray-700 capitalize">
             {{ tradie['Postcode'] }}
           </h2>
-          <span class="text-blue-500 block">{{ tradie.Trade }} </span>
+          <div
+            v-if="tradie._highlightResult.Trade"
+            v-html="tradie._highlightResult.Trade.value"
+            class="text-blue-500 block"
+          ></div>
+          <span v-else class="text-blue-500 block">{{ tradie.Trade }} </span>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import throttle from 'lodash-es/throttle'
+
 export default {
   data() {
     return {
+      limit: 10000,
+      trade: '',
       search: {
         hits: [],
         nbHits: 0
@@ -82,6 +137,14 @@ export default {
       return this.location.suggestion.hit._geoloc.lng
     }
   },
+  watch: {
+    trade() {
+      this.fetch()
+    },
+    limit() {
+      this.fetch()
+    }
+  },
   mounted() {
     const places = require('places.js')
     // eslint-disable-next-line no-unused-vars
@@ -107,21 +170,26 @@ export default {
       this.location = location
       this.$nextTick(this.fetch)
     },
-    fetch() {
-      if (!this.lat || !this.lng) return false
-
+    fetch: throttle(function() {
+      const params = {
+        lat: this.lat,
+        lon: this.lng,
+        limit: this.limit * 100,
+        searchQuery: this.trade
+      }
       this.$axios
         .get(process.env.API_ENDPOINT + '/tradie/index', {
-          params: {
-            lat: this.lat,
-            lon: this.lng,
-            limit: 100000
-          }
+          params
         })
         .then(({ data }) => {
           this.search = data
         })
-    }
+    }, 500)
   }
 }
 </script>
+<style>
+.text-blue-500 em {
+  color: #3b8070;
+}
+</style>

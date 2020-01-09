@@ -5,7 +5,7 @@
   "author": "alex chavet",
   "private": true,
   "scripts": {
-    "dev": "API_ENDPOINT=http://fire-backend.test/api nuxt",
+    "dev": "API_ENDPOINT=http://api.tradiesforfireaffectedcommunities.com/api nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
