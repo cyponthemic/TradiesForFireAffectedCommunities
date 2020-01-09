@@ -94,6 +94,10 @@
           <h2 class="text-sm font-medium text-gray-700 capitalize">
             {{ tradie['Postcode'] }}
           </h2>
+          <address>
+            {{ tradie['Email Address'] }} <br />
+            {{ tradie['Phone Number'] }}
+          </address>
           <div
             v-if="tradie._highlightResult.Trade"
             v-html="tradie._highlightResult.Trade.value"
