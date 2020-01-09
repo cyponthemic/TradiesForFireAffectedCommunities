@@ -19,6 +19,20 @@
         class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
         for="grid-limit"
       >
+        Password
+      </label>
+      <input
+        id="password"
+        type="password"
+        v-model="password"
+        placeholder="password"
+      />
+    </div>
+    <div class="px-3 my-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="grid-limit"
+      >
         Affected area
       </label>
       <input
@@ -99,6 +113,7 @@ export default {
     return {
       limit: 10000,
       trade: '',
+      password: '',
       search: {
         hits: [],
         nbHits: 0
@@ -175,7 +190,8 @@ export default {
         lat: this.lat,
         lon: this.lng,
         limit: this.limit * 100,
-        searchQuery: this.trade
+        searchQuery: this.trade,
+        password: this.password
       }
       this.$axios
         .get(process.env.API_ENDPOINT + '/tradie/index', {
