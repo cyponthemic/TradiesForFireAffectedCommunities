@@ -23,8 +23,8 @@
       </label>
       <input
         id="password"
-        type="password"
         v-model="password"
+        type="password"
         placeholder="password"
       />
     </div>
