@@ -19,6 +19,20 @@
         class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
         for="grid-limit"
       >
+        Password
+      </label>
+      <input
+        id="password"
+        v-model="password"
+        type="password"
+        placeholder="password"
+      />
+    </div>
+    <div class="px-3 my-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="grid-limit"
+      >
         Affected area
       </label>
       <input
@@ -80,6 +94,10 @@
           <h2 class="text-sm font-medium text-gray-700 capitalize">
             {{ tradie['Postcode'] }}
           </h2>
+          <address>
+            {{ tradie['Email Address'] }} <br />
+            {{ tradie['Phone Number'] }}
+          </address>
           <div
             v-if="tradie._highlightResult.Trade"
             v-html="tradie._highlightResult.Trade.value"
@@ -99,6 +117,7 @@ export default {
     return {
       limit: 10000,
       trade: '',
+      password: '',
       search: {
         hits: [],
         nbHits: 0
@@ -175,7 +194,8 @@ export default {
         lat: this.lat,
         lon: this.lng,
         limit: this.limit * 100,
-        searchQuery: this.trade
+        searchQuery: this.trade,
+        password: this.password
       }
       this.$axios
         .get(process.env.API_ENDPOINT + '/tradie/index', {
