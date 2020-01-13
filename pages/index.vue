@@ -1,9 +1,9 @@
 <template>
   <div>
     <div
-      class="w-full min-h-screen relative bg-red-500 flex items-center justify-center flex-col p-6"
+      class="w-full min-h-screen relative bg-white flex items-center justify-center flex-col p-6"
     >
-      <Logo class="w-full max-w-sm fill-current text-white"></Logo>
+      <Logo class="w-full max-w-sm fill-current  text-red-500"></Logo>
 
       <div class="py-16 text-center text-white">
         <a
@@ -53,7 +53,7 @@
 import IconFacebook from '../components/IconFacebook'
 import IconMail from '../components/IconMail'
 import Logo from '~/components/Logo.vue'
-import ButtonPrimary from '~/components/ButtonInvert.vue'
+import ButtonPrimary from '~/components/ButtonPrimary.vue'
 
 export default {
   components: {

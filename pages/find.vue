@@ -11,6 +11,7 @@
             v-for="hit in hits"
             :lat-lng="[hit._geoloc.lat, hit._geoloc.lon]"
           ></l-marker>
+          <l-circle :lat-lng="centerLatLon" :radius="limit * 100"></l-circle>
         </l-map>
       </no-ssr>
     </div>
