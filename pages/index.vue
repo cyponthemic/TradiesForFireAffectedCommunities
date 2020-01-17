@@ -15,7 +15,9 @@
         <ButtonPrimary class="opacity-50 pointer-events-none"
           >Need Help
         </ButtonPrimary>
-        <small class="block mt-3">Need Help form coming soon</small>
+        <small class="block mt-3 text-red-500"
+          >Need Help form coming soon</small
+        >
       </div>
     </div>
     <div class="container p-6 mx-auto">
