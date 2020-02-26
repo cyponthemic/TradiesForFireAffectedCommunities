@@ -34,8 +34,7 @@ export default {
       {
         hid: `og:image`,
         property: 'og:image',
-        content:
-          'https://tradiesforfireaffectedcommunities.com/TFFAC_Red_Updated-01.png'
+        content: 'https://tradiesforfireaffectedcommunities.com/TFFAC.png'
       },
       {
         hid: `fb:app_id`,

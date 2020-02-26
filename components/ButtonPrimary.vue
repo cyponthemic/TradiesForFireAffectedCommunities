@@ -1,8 +1,15 @@
 <template>
   <button
     @click="$emit('click')"
-    class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded"
+    class="min-w-240 bg-transparent hover:bg-white text-white hover:text-primary font-bold py-6 px-4 border-2 rounded-full border-white hover:border-blue rounded w-full"
   >
-    <slot></slot>
+    <span class="relative pl-16">
+      <slot></slot>
+    </span>
   </button>
 </template>
+<style>
+.min-w-240 {
+  min-width: 240px;
+}
+</style>
