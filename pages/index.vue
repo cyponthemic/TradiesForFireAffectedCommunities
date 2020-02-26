@@ -1,68 +1,95 @@
 <template>
-  <div>
+  <div class="bg-primary">
     <div
-      class="w-full min-h-screen relative bg-white flex items-center justify-center flex-col p-6"
+      class="w-full min-h-screen relative flex items-center justify-center flex-col p-6"
     >
-      <Logo class="w-full max-w-sm fill-current  text-red-500"></Logo>
-
-      <div class="py-16 text-center text-white">
+      <Logo
+        class=" absolute top-0 left-0 h-16 m-8 w-auto fill-current  text-red-500"
+      ></Logo>
+      <a
+        class="hidden md:block facebook-group absolute top-0 right-0 m-8 h-16 mt-12"
+        href="https://www.facebook.com/groups/2524572697856866"
+        >Facebook Group</a
+      >
+      <p class="value-prop md:text-center mt-16 md:mt-0">
+        Connecting tradies with fire affected communities.
+      </p>
+      <div class="py-16 text-center text-white w-full">
         <a
+          class="block text-left  mb-6 md:mb-0  md:inline-block"
+          href="https://forms.gle/jqmFg32PhMvskEhG8"
+          target="_blank"
+        >
+          <ButtonPrimary>
+            <IconNeedHelp
+              class="absolute center-abs inline-block fill-current"
+              style="width: 47px; height: 39px;"
+            ></IconNeedHelp>
+            I need help</ButtonPrimary
+          >
+        </a>
+        <a
+          class="block text-left md:inline-block"
           href="https://docs.google.com/forms/d/e/1FAIpQLScKuXaNHLkaWmfx8VL0I3ZkOdc8LtvBfCe1r-21RmhGzBlnMQ/viewform"
           target="_blank"
         >
-          <ButtonPrimary>Offer Help</ButtonPrimary>
-        </a>
-        <ButtonPrimary class="opacity-50 pointer-events-none"
-          >Need Help
-        </ButtonPrimary>
-        <small class="block mt-3 text-red-500"
-          >Need Help form coming soon</small
-        >
-      </div>
-    </div>
-    <div class="container p-6 mx-auto">
-      <div class="max-w-sm mx-auto text-center">
-        <h2 class="text-4xl my-6 font-bold">About us</h2>
-        <p>
-          The devastating fires we’ve seen for the last 5 months are
-          unprecedented, and unparalleled. However, community spirit,
-          selflessness and the willingness to go out of your way to help
-          complete strangers is by far, the shining light that comes out of the
-          ashes. As tradies we are forever helping mates, and this is no
-          different. So if you’d like to get your hands dirty and help out the
-          community, please register your input above. And if you’re a bushfire
-          victim looking for help, please do the same and we will put you in
-          contact with the right people. Keep up the great work!
-        </p>
-        <h2 class="text-4xl my-6 font-bold">Get in touch</h2>
-        <div class="flex justify-center pb-16">
-          <a
-            href="https://www.facebook.com/groups/2524572697856866"
-            target="_blank"
+          <ButtonPrimary>
+            <IconOfferHelp
+              class="absolute center-abs inline-block fill-current"
+              style="width: 47px; height: 26px;"
+            ></IconOfferHelp>
+            I can offer help</ButtonPrimary
           >
-            <IconFacebook class="w-8 h-8 mx-4"></IconFacebook>
-          </a>
-          <a href="mailto:tradies4fac@gmail.com" target="_blank">
-            <IconMail class="w-8 h-8 mx-4"></IconMail>
-          </a>
-        </div>
+        </a>
+
+        <small
+          class="absolute bottom-0 left-0 mb-8 block mt-3 text-white mt-24 w-full text-center"
+          >This is a temporary site. Complete site coming soon.</small
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import IconFacebook from '../components/IconFacebook'
-import IconMail from '../components/IconMail'
 import Logo from '~/components/Logo.vue'
 import ButtonPrimary from '~/components/ButtonPrimary.vue'
+import IconNeedHelp from '~/components/IconNeedHelp.vue'
+import IconOfferHelp from '~/components/IconOfferHelp.vue'
 
 export default {
   components: {
     Logo,
-    ButtonPrimary,
-    IconFacebook,
-    IconMail
+    IconNeedHelp,
+    IconOfferHelp,
+    ButtonPrimary
   }
 }
 </script>
+
+<style>
+.value-prop {
+  max-width: 577px;
+  font-size: 48px;
+  line-height: 58px;
+  letter-spacing: 0;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.facebook-group {
+  text-align: left;
+  text-decoration: underline;
+  font-size: 18px;
+  line-height: 23px;
+  letter-spacing: 0;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.center-abs {
+  transform: translate(0, -50%);
+  top: 50%;
+  left: 0;
+}
+</style>
