@@ -16,7 +16,7 @@
       </p>
       <div class="py-16 text-center text-white w-full">
         <a
-          class="block text-left  mb-6 md:mb-0  md:inline-block"
+          class="md:mx-4 block text-left  mb-6 md:mb-0  md:inline-block"
           href="https://forms.gle/jqmFg32PhMvskEhG8"
           target="_blank"
         >
@@ -29,7 +29,7 @@
           >
         </a>
         <a
-          class="block text-left md:inline-block"
+          class="md:mx-4 block text-left md:inline-block"
           href="https://docs.google.com/forms/d/e/1FAIpQLScKuXaNHLkaWmfx8VL0I3ZkOdc8LtvBfCe1r-21RmhGzBlnMQ/viewform"
           target="_blank"
         >

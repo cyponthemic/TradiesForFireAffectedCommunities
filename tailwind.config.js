@@ -9,6 +9,9 @@ module.exports = {
     extend: {
       colors: {
         primary: '#074135'
+      },
+      fontFamily: {
+        sans: 'CircularStd'
       }
     }
   },
